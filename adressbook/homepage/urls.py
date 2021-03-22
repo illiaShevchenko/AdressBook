@@ -19,8 +19,8 @@ from . import views
 urlpatterns = [
     path('', views.index, name = 'wellcome'),
     path('list', views.list, name = 'list'),
-    path('add', views.add, name = 'add'),
+    path('main_form', views.add, name = 'main_form'),
     path('delete/<int:id>/', views.delete, name = 'delete_id'),
-    path('add/<int:id>/', views.edit, name = 'add_id')
+    path('main_form/<int:id>/', views.edit, name = 'main_form_id')
     ]
  

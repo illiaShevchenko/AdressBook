@@ -1,7 +1,7 @@
 from django.test import TestCase
-
 from homepage.models import Person
 from django.urls import reverse
+from http import HTTPStatus
 
 
 class PersonListViewTest(TestCase):
@@ -17,26 +17,26 @@ class PersonListViewTest(TestCase):
 
     def test_view_url_accessible_by_name_list(self):
         resp = self.client.get(reverse('list'))
-        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.status_code, HTTPStatus.OK)
 
     def test_view_url_accessible_by_name_delete_id(self):
         resp = self.client.post(reverse('delete_id', kwargs = {'id':2}))
-        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(resp.status_code, HTTPStatus.FOUND)
 
     def test_view_url_accessible_by_name_add(self):
-        resp = self.client.get(reverse('add'))
-        self.assertEqual(resp.status_code, 200)
+        resp = self.client.get(reverse('main_form'))
+        self.assertEqual(resp.status_code, HTTPStatus.OK)
 
     def test_view_url_accessible_by_name_home(self):
         resp = self.client.get(reverse('wellcome'))
-        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.status_code, HTTPStatus.OK)
 
-    def test_view_url_accessible_by_name_add_id(self):
-        resp = self.client.get(reverse('add_id', kwargs = {'id':4}))
-        self.assertEqual(resp.status_code, 200)
+    def test_view_url_accessible_by_name_main_form_id(self):
+        resp = self.client.get(reverse('main_form_id', kwargs = {'id':4}))
+        self.assertEqual(resp.status_code, HTTPStatus.OK)
 
     def test_view_uses_correct_template_list(self):
         resp = self.client.get(reverse('list'))
-        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.status_code, HTTPStatus.OK)
 
         self.assertTemplateUsed(resp, 'homepage/wrapper.html', 'homepage/list.html')

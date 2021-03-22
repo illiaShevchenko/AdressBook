@@ -2,7 +2,7 @@ from .models import Person
 from django.forms import ModelForm, TextInput, CharField, EmailInput, EmailField, ImageField, ClearableFileInput
 
 def user_directory_path(instance, filename):
-    return 'user_{0}/{1}'.format(instance.user.id, filename)
+    return f'user_{instance.user.id}/{filename}'
 
 class PersonForm(ModelForm):
     class Meta:

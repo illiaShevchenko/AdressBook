@@ -21,20 +21,24 @@ def list(request):
             Q(street__icontains=search_input) | 
             Q(phone__icontains=search_input) | 
             Q(email__icontains=search_input))
+        output_data = {'title': f'Результаты поиска по запросу {search_input}',
+             'persons': persons,
+             }        
         if not persons:    
             output_data = {'title': 'Результаты поиска',
-             'persons':persons,
              'search_input': search_input,
-             'result': 'Нет результатов по запросу "{0}"'.format(search_input)
+             'result': f'Нет результатов по запросу {search_input}'
              }
     else:
         persons = Person.objects.all()
         search_input = ''
-        if not persons:
+        if persons:
             output_data = {'title': 'Список',
-             'persons':persons,
-             'search_input': search_input,
-             'result': 'Пока список пуст, нажмите Добавление, чтобы заполнить!'
+             'persons': persons,
+             }
+        else:
+            output_data = {'title': 'Пустой список',
+             'result':'Пока список пуст, нажмите "Добавление", чтобы заполнить!'
              }
     return render(request, 'homepage/list.html', output_data)
 
@@ -50,14 +54,13 @@ def add(request):
         else:
             print(form.errors)
             error = 'Ошибка ввода, проверьте данные.'
-
     form = PersonForm()
     context = {
         'form': form,
         'title': 'Добавление',
         'error': error
     }
-    return render(request, 'homepage/add.html', context)
+    return render(request, 'homepage/main_form.html', context)
 
 
 def edit(request,id):
@@ -78,11 +81,11 @@ def edit(request,id):
                 error = 'Ошибка ввода, проверьте данные.'
         form = PersonForm(instance = person)
         context = {
-        'form': form,
-        'title': 'Редактирование',
-        'error': error
+            'form': form,
+            'title': 'Редактирование',
+            'error': error
          }
-        return render(request, 'homepage/add.html', context)
+        return render(request, 'homepage/main_form.html', context)
     except Person.DoesNotExist:
         return HttpResponseNotFound("<h2>Person not found</h2>")
 
