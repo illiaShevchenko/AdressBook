@@ -1,0 +1,29 @@
+{% extends 'homepage/wrapper.html' %}
+{% block title %}
+{{title}}
+{% endblock %}
+{% block category %}
+{{title}}
+{% endblock %}
+{% block info %}
+{% if persons %}
+{% for person in persons %}
+</style>
+<div class="alert alert-warning mt-1">
+   <img src="{{ person.image.url}}" height="270" alt="{{ person.surname }}" style="float:right; margin: 7px 0 7px 7px;">
+   <h3>
+   {{person.surname}} {{person.name}}</h4>
+   <br>
+   <h6>Адрес: </h6>
+   <p>Страна: {{person.country}}, Город: {{person.city}}, Улица: {{person.street}}</p>
+   <h5>Контактная информация: </h5>
+   <p>Phone: {{person.phone}}
+   <p>Email: {{person.email}}</p>
+   <a href="add/{{person.id}}" class="btn btn-secondary btn active" role="button" align="right" aria-pressed="true">Редактировать</a>
+   <a href="delete/{{person.id}}" class="btn btn-secondary btn active" role="button" align="right" aria-pressed="true">Удалить</a>
+</div>
+{% endfor %}
+{% else %}
+<a>{{output_data.result}}</a>
+{% endif %}
+{% endblock %}

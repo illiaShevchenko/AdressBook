@@ -1,0 +1,23 @@
+{% extends 'homepage/wrapper.html' %}
+{% block title %}
+{{title}}
+{% endblock %}
+{% block category %}
+{{title}}
+{% endblock %}
+{% block info %}
+<form method="post" enctype="multipart/form-data"> 
+   {% csrf_token %}
+   Фамилия: {{form.surname}}
+   Имя: {{form.name}}<br>
+   Страна: {{form.country}}
+   Город: {{form.city}}
+   Улица: {{form.street}}<br>
+   Номер телефона: {{form.phone}}<br>
+   Электронная почта: {{form.email}}<br>
+   Изображение профиля:<br> {{form.image}}<br>
+   <br>
+   <button class="btn btn-outline-success" type="submit">Добавить</button>
+   <span>{{error}}</span>
+</form>
+{% endblock %}
